@@ -1,4 +1,4 @@
-package main
+package summary
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 	"github.com/kniren/gota/dataframe"
 )
 
-func main() {
+func SummarizeTable() {
 	// we open the csv file from the disk
 	f, err := os.Open("./datasets/kc_house_data.csv")
 	if err != nil {

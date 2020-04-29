@@ -10,6 +10,10 @@ import (
 )
 
 func main() {
+	testRegression("sqft_living")
+}
+
+func testRegression(key string) {
 	// we open the csv file from the disk
 	f, err := os.Open("./datasets/testing.csv")
 	if err != nil {
@@ -28,6 +32,11 @@ func main() {
 		log.Fatal(err)
 	}
 
+	var columnId = getColumnId(key, records[0])
+	if columnId < 0 {
+		log.Fatal("\nInvalid Column name ", key)
+	}
+
 	// by slicing the records we skip the header
 	records = records[1:]
 	// Loop over the test data predicting y
@@ -44,7 +53,7 @@ func main() {
 		sumObserved += price
 
 		// Parse the grade value.
-		grade, err := strconv.ParseFloat(record[11], 64)
+		grade, err := strconv.ParseFloat(record[columnId], 64)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -65,6 +74,16 @@ func main() {
 	fmt.Printf("R-squared = %0.2f\n\n", rsquared)
 }
 
-func predict(grade float64) float64 {
-	return -1065201.67 + grade*209786.29
+func predict(key float64) float64 {
+	return -42392.2729 + key*280.5608
+}
+
+func getColumnId(columnName string, tableHeader []string) int {
+	for i, column := range tableHeader {
+		if column == columnName {
+			return i
+		}
+	}
+
+	return -1
 }
