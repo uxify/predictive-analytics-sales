@@ -26,7 +26,7 @@ func main() {
 	ptsPred := make(plotter.XYs, df.Nrow())
 
 	yVals := df.Col("price").Float()
-	for i, floatVal := range df.Col("grade").Float() {
+	for i, floatVal := range df.Col("sqft_living").Float() {
 		pts[i].X = floatVal
 		pts[i].Y = yVals[i]
 		ptsPred[i].X = floatVal
@@ -64,5 +64,5 @@ func main() {
 }
 
 func predict(grade float64) float64 {
-	return -1044346.23 + grade*207717.23
+	return -42392.2729 + grade*280.5608
 }
